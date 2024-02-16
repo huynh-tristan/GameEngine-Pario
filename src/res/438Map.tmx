@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#54d1ff" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export target="438NewMap.tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" source="test.tsx"/>
+ <tileset firstgid="5" source="test1.tsx"/>
+ <tileset firstgid="817" source="grassHillLeft.tsx"/>
+ <tileset firstgid="821" source="grassHillRight.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="30" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2SSwqAMAxEW+OF3HgqF+L9F1okUMb8Cl24yMDQUtq8ZGgpqVTqzzrBqTFdYNZG71ofL45niZltXcvXBJ6pxqzAQjbvvTy8fPo5mWnx8Ixgr93bhZAkJik1NR4a7+CcTVK2/RtrTmRpf0PK/nAy1eYfYWNtLyMv54itPiJcrQ+LNdJf5D/fRTluamAJAAA=
+  </data>
+ </layer>
+</map>
