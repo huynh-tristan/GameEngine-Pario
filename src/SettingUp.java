@@ -9,6 +9,7 @@ public class SettingUp extends StateBasedGame {
     public void initStatesList(GameContainer gameContainer) {
         this.addState(new GameState());
         this.addState(new GameOverState());
+        this.addState(new CompletionState());
     }
 
 }
