@@ -14,7 +14,7 @@ public class Game {
 
     public Game() throws SlickException {
         app = new AppGameContainer(new LevelInitializer("Pario v2"));
-        //app = new AppGameContainer(new SettingUp("Pario v1"));
+        //app = new AppGameContainer(new GameStuff.SettingUp("Pario v1"));
         app.setDisplayMode(GAME_WIDTH, GAME_HEIGHT,false);
         app.setTargetFrameRate(100);
         app.start();

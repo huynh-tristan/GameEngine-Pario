@@ -1,3 +1,5 @@
+package Levels;
+
 import GameStuff.Player;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;

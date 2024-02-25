@@ -36,7 +36,8 @@ public class LevelOne extends BasicGameState {
 
     private void defineLevel() {
         int[][] lvlData;
-        lvlData = new int[][]{{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        lvlData = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -66,12 +67,15 @@ public class LevelOne extends BasicGameState {
 //        graphics.fillRect(player.getXDelta(),player.getYDelta(),200,50);
         player.renderFront();
         int[] center = player.getCenterOfLocation();
-        graphics.drawLine(center[0] / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta(), player.getWidth(), player.getHeight());
+        graphics.rotate();
+        graphics.drawLine(center[0] / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta(), center[0] / 2 + player.getXDelta(), player.getHeight() / 2 + player.getYDelta());
+        graphics.drawLine(center[0] / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta(), player.getWidth() / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta());
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
         player.update();
         if(player.getXDelta() > 960) {
+            player.updateLocation(0,370);
             stateBasedGame.enterState(2);
         }
         if(gameContainer.getInput().isKeyPressed(Input.KEY_0)){

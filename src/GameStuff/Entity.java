@@ -73,8 +73,8 @@ public abstract class Entity {
     public int[] getCenterOfLocation() {
         int cx = (int) frontImage.getCenterOfRotationX();
         int cy = (int) frontImage.getCenterOfRotationY();
-        System.out.println("X center of ro: " + cx);
-        System.out.println("Y center of ro: " + cy);
+        //System.out.println("X center of ro: " + cx);
+        //System.out.println("Y center of ro: " + cy);
         return new int[]{cx, cy};
     }
 

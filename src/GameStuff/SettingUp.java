@@ -1,3 +1,6 @@
+package GameStuff;
+
+import Levels.GameState;
 import Levels.CompletionState;
 import Levels.GameOverState;
 import org.newdawn.slick.GameContainer;
