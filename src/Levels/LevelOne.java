@@ -30,7 +30,8 @@ public class LevelOne extends BasicGameState {
 
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         graphics.drawString("Level 1", 300, 200);
-        graphics.fillRect(player.getXDelta(),player.getYDelta(),200,50);
+//        graphics.fillRect(player.getXDelta(),player.getYDelta(),200,50);
+        player.renderFront();
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {

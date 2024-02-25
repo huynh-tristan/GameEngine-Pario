@@ -8,33 +8,25 @@ public abstract class Entity {
     protected Image jumpingImage = null;
     protected Image hurtImage = null;
     //Something for movement animation if implemented
-    protected float x, y;
+    protected float xDelta, yDelta;
     protected float scale;
     //something velocity x and y
     //vectors for OBB
 
     public void renderFront() {
-        frontImage.draw(x,y,scale);
+        frontImage.draw(xDelta,yDelta,scale);
     }
 
     public void renderDuck() {
-        duckingImage.draw(x,y,scale);
+        duckingImage.draw(xDelta,yDelta,scale);
     }
 
     public void renderJump() {
-        jumpingImage.draw(x,y,scale);
+        jumpingImage.draw(xDelta,yDelta,scale);
     }
 
     public void renderHurt() {
-        hurtImage.draw(x,y,scale);
-    }
-
-    public float getX() {
-        return this.x;
-    }
-
-    public float getY() {
-        return  this.y;
+        hurtImage.draw(xDelta,yDelta,scale);
     }
 
     public void updateScale(float newScale) {
@@ -42,8 +34,32 @@ public abstract class Entity {
     }
 
     public void updateLocation(float x, float y) {
-        this.x = x;
-        this.y = y;
+        this.xDelta = x;
+        this.yDelta = y;
+    }
+
+    public void changeXDelta(float xDelta) {
+        setXDelta(getXDelta() + xDelta);
+    }
+
+    public void changeYDelta(float yDelta) {
+        setYDelta(getYDelta() + yDelta);
+    }
+
+    public void setYDelta(float yDelta) {
+        this.yDelta = yDelta;
+    }
+
+    public int getYDelta() {
+        return (int) this.yDelta;
+    }
+
+    public void setXDelta(float xDelta) {
+        this.xDelta = xDelta;
+    }
+
+    public int getXDelta() {
+        return (int) this.xDelta;
     }
 
     public int[] getCenterOfLocation() {

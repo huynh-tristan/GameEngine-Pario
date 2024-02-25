@@ -1,3 +1,4 @@
+import GameStuff.Player;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -40,24 +41,24 @@ public class GameState extends BasicGameState {
             stateBasedGame.enterState(1);
         }
         if(gameContainer.getInput().isKeyPressed(Input.KEY_SPACE) || gameContainer.getInput().isKeyPressed(Input.KEY_W) || gameContainer.getInput().isKeyPressed(Input.KEY_UP)){
-            player.updateLocation(player.getX(), player.getY() - 32);
+            player.updateLocation(player.getXDelta(), player.getYDelta() - 32);
             player.renderFront();
             player.getCenterOfLocation();
         }
         if(gameContainer.getInput().isKeyPressed(Input.KEY_LEFT) || gameContainer.getInput().isKeyPressed(Input.KEY_A)){
-            if (player.getX() > 0) {
-                player.updateLocation(player.getX() - 32, player.getY());
+            if (player.getXDelta() > 0) {
+                player.updateLocation(player.getXDelta() - 32, player.getYDelta());
                 player.renderFront();
                 player.getCenterOfLocation();
             }
         }
         if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT) || gameContainer.getInput().isKeyPressed(Input.KEY_D)){
-            if (player.getX() < 928) {
-                player.updateLocation(player.getX() + 32, player.getY());
+            if (player.getXDelta() < 928) {
+                player.updateLocation(player.getXDelta() + 32, player.getYDelta());
                 player.renderFront();
                 player.getCenterOfLocation();
                 player.setRotation(player.getRotation() + 15);
-                if (player.getX() >= 928) {
+                if (player.getXDelta() >= 928) {
                     stateBasedGame.enterState(2);
                 }
             }
