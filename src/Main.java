@@ -5,10 +5,12 @@ import org.newdawn.slick.SlickException;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws SlickException {
-        AppGameContainer app = new AppGameContainer(new SettingUp("Test"));
-        app.setTargetFrameRate(60);
-        app.setDisplayMode(960,640,false);
+//        AppGameContainer app = new AppGameContainer(new SettingUp("Test"));
+//        app.setTargetFrameRate(60);
+//        app.setDisplayMode(960,640,false);
+//
+//        app.start();
 
-        app.start();
+        new Game();
     }
 }

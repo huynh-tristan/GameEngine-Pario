@@ -1,3 +1,5 @@
+package GameStuff;
+
 import org.newdawn.slick.Image;
 
 public abstract class Entity {

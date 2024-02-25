@@ -19,6 +19,8 @@ public class GameState extends BasicGameState {
             throw new RuntimeException(e);
         }
         player = new Player(playerImage, 0,370,0.5f);
+        System.out.println("X center of ro: " + playerImage.getCenterOfRotationX());
+        System.out.println("Y center of ro: " + playerImage.getCenterOfRotationY());
     }
 
     @Override
@@ -40,17 +42,21 @@ public class GameState extends BasicGameState {
         if(gameContainer.getInput().isKeyPressed(Input.KEY_SPACE) || gameContainer.getInput().isKeyPressed(Input.KEY_W) || gameContainer.getInput().isKeyPressed(Input.KEY_UP)){
             player.updateLocation(player.getX(), player.getY() - 32);
             player.renderFront();
+            player.getCenterOfLocation();
         }
         if(gameContainer.getInput().isKeyPressed(Input.KEY_LEFT) || gameContainer.getInput().isKeyPressed(Input.KEY_A)){
             if (player.getX() > 0) {
                 player.updateLocation(player.getX() - 32, player.getY());
                 player.renderFront();
+                player.getCenterOfLocation();
             }
         }
-        if(gameContainer.getInput().isKeyPressed(Input.KEY_RIGHT) || gameContainer.getInput().isKeyPressed(Input.KEY_D)){
+        if(gameContainer.getInput().isKeyDown(Input.KEY_RIGHT) || gameContainer.getInput().isKeyPressed(Input.KEY_D)){
             if (player.getX() < 928) {
                 player.updateLocation(player.getX() + 32, player.getY());
                 player.renderFront();
+                player.getCenterOfLocation();
+                player.setRotation(player.getRotation() + 15);
                 if (player.getX() >= 928) {
                     stateBasedGame.enterState(2);
                 }

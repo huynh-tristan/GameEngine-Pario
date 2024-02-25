@@ -1,6 +1,8 @@
+package GameStuff;
+
 import org.newdawn.slick.Image;
 
-public class Player extends Entity{
+public class Player extends Entity {
     protected int xDelta = 100;
     protected int yDelta = 100;
     //Class will be used to keep information of the player character including hitbox/gravity etc.
