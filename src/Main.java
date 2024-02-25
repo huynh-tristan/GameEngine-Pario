@@ -1,3 +1,4 @@
+import GameStuff.Game;
 import org.newdawn.slick.SlickException;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

@@ -10,7 +10,15 @@ public abstract class Entity {
     //Something for movement animation if implemented
     protected float xDelta, yDelta;
     protected float scale;
-    //something velocity x and y
+    protected boolean moving = false;
+    protected boolean up, down, left, right, jump;
+    protected float speed = 0;
+    protected float airSpeed = 0;
+    protected float gravity = 0.04f;
+    protected float jumpSpeed = 0;
+    protected boolean inTheAir = false;
+
+    public abstract void update();
     //vectors for OBB
 
     public void renderFront() {
@@ -76,5 +84,49 @@ public abstract class Entity {
 
     public float getRotation() {
         return this.frontImage.getRotation();
+    }
+
+    public boolean isLeft() {
+        return this.left;
+    }
+
+    public boolean isRight() {
+        return this.right;
+    }
+
+    public boolean isUp() {
+        return this.up;
+    }
+
+    public boolean isDown() {
+        return this.down;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public void setUpDir(boolean up) {
+        this.up = up;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public void setJump(boolean jump) {
+        this.jump = jump;
+    }
+
+    public int getWidth() {
+        return this.frontImage.getWidth();
+    }
+
+    public int getHeight() {
+        return this.frontImage.getHeight();
     }
 }

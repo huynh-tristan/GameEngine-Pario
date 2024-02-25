@@ -1,9 +1,15 @@
 package Inputs;
 
+import GameStuff.Player;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
 
 public class MouseInputs implements MouseListener {
+    private Player player;
+    public MouseInputs(Player player) {
+        this.player = player;
+    }
+
     @Override
     public void mouseWheelMoved(int i) {
 
@@ -26,7 +32,7 @@ public class MouseInputs implements MouseListener {
 
     @Override
     public void mouseMoved(int i, int i1, int i2, int i3) {
-
+        player.updateLocation(i, i1);
     }
 
     @Override

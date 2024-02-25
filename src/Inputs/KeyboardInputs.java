@@ -16,26 +16,53 @@ public class KeyboardInputs implements KeyListener {
         switch (i) {
             case Input.KEY_W:
             case Input.KEY_UP:
-                player.changeYDelta(-5);
+                player.setUpDir(true);
+                //player.changeYDelta(-5);
                 break;
             case Input.KEY_A:
             case Input.KEY_LEFT:
-                player.changeXDelta(-5);
+                player.setLeft(true);
+                //player.changeXDelta(-5);
                 break;
             case Input.KEY_S:
             case Input.KEY_DOWN:
-                player.changeYDelta(5);
+                player.setDown(true);
+                //player.changeYDelta(5);
                 break;
             case Input.KEY_D:
             case Input.KEY_RIGHT:
-                player.changeXDelta(5);
+                player.setRight(true);
+                //player.changeXDelta(5);
+                break;
+            case Input.KEY_SPACE:
+                player.setJump(true);
                 break;
         }
     }
 
     @Override
     public void keyReleased(int i, char c) {
-
+        switch (i) {
+            case Input.KEY_W:
+            case Input.KEY_UP:
+                player.setUpDir(false);
+                break;
+            case Input.KEY_A:
+            case Input.KEY_LEFT:
+                player.setLeft(false);
+                break;
+            case Input.KEY_S:
+            case Input.KEY_DOWN:
+                player.setDown(false);
+                break;
+            case Input.KEY_D:
+            case Input.KEY_RIGHT:
+                player.setRight(false);
+                break;
+            case Input.KEY_SPACE:
+                player.setJump(false);
+                break;
+        }
     }
 
 

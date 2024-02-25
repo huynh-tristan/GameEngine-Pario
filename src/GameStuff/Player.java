@@ -10,6 +10,23 @@ public class Player extends Entity {
         this.xDelta = x;
         this.yDelta = y;
         this.scale = imageScale;
+        this.speed = 2.0f;
+        this.jumpSpeed = -2.25f;
+    }
+
+    public void update() {
+        //update the position/called in the level's update loop
+        if (this.left && !this.right) {
+            this.xDelta -= this.speed;
+        } else if (!this.left && this.right) {
+            this.xDelta += this.speed;
+        }
+
+        if (this.up && !this.down) {
+            this.yDelta -= this.speed;
+        } else if (!this.up && this.down) {
+            this.yDelta += this.speed;
+        }
     }
     //Something with hitbox/collision related functions
 }
