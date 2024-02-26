@@ -12,10 +12,10 @@ public abstract class Entity {
     protected float scale;
     protected boolean moving = false;
     protected boolean up, down, left, right, jump;
-    protected float speed = 0;
-    protected float airSpeed = 0;
+    protected float speed = 0f;
+    protected float airSpeed = 0f;
     protected float gravity = 0.04f;
-    protected float jumpSpeed = 0;
+    protected float jumpSpeed = 0f;
     protected boolean inTheAir = false;
 
     public abstract void update();

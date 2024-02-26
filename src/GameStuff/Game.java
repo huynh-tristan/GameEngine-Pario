@@ -16,7 +16,7 @@ public class Game {
         app = new AppGameContainer(new LevelInitializer("Pario v2"));
         //app = new AppGameContainer(new GameStuff.SettingUp("Pario v1"));
         app.setDisplayMode(GAME_WIDTH, GAME_HEIGHT,false);
-        app.setTargetFrameRate(100);
+        app.setTargetFrameRate(50);
         app.start();
     }
 }
