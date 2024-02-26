@@ -21,7 +21,7 @@ public class GameState extends BasicGameState {
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
-        player = new Player(playerImage, 0,370,0.5f);
+        //player = new Player(playerImage, 0,370,0.5f);
         System.out.println("X center of ro: " + playerImage.getCenterOfRotationX());
         System.out.println("Y center of ro: " + playerImage.getCenterOfRotationY());
     }

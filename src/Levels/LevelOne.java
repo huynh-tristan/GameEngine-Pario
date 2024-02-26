@@ -21,17 +21,18 @@ public class LevelOne extends BasicGameState {
     }
 
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        defineLevel();
         Image playerImage;
         try {
             playerImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
-        player = new Player(playerImage, 0,370,0.5f);
+        player = new Player(playerImage, 0,370,0.5f, lvlOne.getLvlData());
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
         gameContainer.getInput().addMouseListener(new MouseInputs(this.player));
 
-        defineLevel();
+
     }
 
     private void defineLevel() {
@@ -67,9 +68,9 @@ public class LevelOne extends BasicGameState {
 //        graphics.fillRect(player.getXDelta(),player.getYDelta(),200,50);
         player.renderFront();
         int[] center = player.getCenterOfLocation();
-        graphics.rotate();
         graphics.drawLine(center[0] / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta(), center[0] / 2 + player.getXDelta(), player.getHeight() / 2 + player.getYDelta());
         graphics.drawLine(center[0] / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta(), player.getWidth() / 2 + player.getXDelta(), center[1] / 2 + player.getYDelta());
+        graphics.drawRect(player.getXDelta(), player.getYDelta(), player.getWidth() / 2, player.getHeight() / 2);
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {

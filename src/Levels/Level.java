@@ -10,4 +10,8 @@ public class Level {
     public int getTileSpriteIndex(int x, int y) {
         return this.lvlData[y][x];
     }
+
+    public int[][] getLvlData() {
+        return this.lvlData;
+    }
 }
