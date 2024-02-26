@@ -1,5 +1,6 @@
 package GameStuff;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public abstract class Entity {
@@ -129,4 +130,6 @@ public abstract class Entity {
     public int getHeight() {
         return this.frontImage.getHeight();
     }
+
+    public abstract void drawHitbox(Graphics graphics);
 }
