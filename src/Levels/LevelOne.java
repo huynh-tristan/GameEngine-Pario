@@ -89,7 +89,7 @@ public class LevelOne extends BasicGameState {
         player.update();
         testAgent.update();
         secondEntity.update();
-        if(player.getXDelta() > 928) {
+        if(player.getXDelta() > 910) {
             player.updateLocation(3,368);
             stateBasedGame.enterState(2);
         }
