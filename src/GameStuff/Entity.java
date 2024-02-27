@@ -3,6 +3,8 @@ package GameStuff;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import java.util.ArrayList;
+
 public abstract class Entity {
     protected Image frontImage = null;
     protected Image duckingImage = null;
@@ -18,6 +20,8 @@ public abstract class Entity {
     protected float gravity = 0.04f;
     protected float jumpSpeed = 0f;
     protected boolean inTheAir = false;
+    
+    protected ArrayList<Entity> entityCollisionCheckList;
 
     public abstract void update();
     //vectors for OBB
@@ -132,4 +136,24 @@ public abstract class Entity {
     }
 
     public abstract void drawHitbox(Graphics graphics);
+
+    public void setEntityCollisionCheckList(ArrayList<Entity> entities) {
+        entityCollisionCheckList = entities;
+    }
+
+    public void appendToEntityList(Entity entity) {
+        entityCollisionCheckList.add(entity);
+    }
+
+    public ArrayList<Entity> getEntityList() {
+        return this.entityCollisionCheckList;
+    }
+
+    public abstract boolean entityToEntityCollisionCheck(int numOfEntity);
+
+    public abstract void entityCollisionInteraction();
+
+    public Entity getEntity(int numOfEntity) {
+        return this.entityCollisionCheckList.get(numOfEntity);
+    }
 }

@@ -16,8 +16,8 @@ public class Player extends Entity {
         this.xDelta = x;
         this.yDelta = y;
         this.scale = imageScale;
-        this.speed = 2.0f;
-        this.jumpSpeed = -4.25f;
+        this.speed = 1.5f;
+        this.jumpSpeed = -3.25f;
         this.lvlData = lvlData;
     }
 
@@ -63,18 +63,6 @@ public class Player extends Entity {
             updateX(xSpeed);
         }
 
-//        if (this.up && !this.down) {
-//            ySpeed = -speed;
-//            //this.yDelta -= this.speed;
-//        } else if (!this.up && this.down) {
-//            ySpeed = speed;
-//            //this.yDelta += this.speed;
-//        }
-
-//        if (HelperFunctions.CanMoveHere(this.xDelta + xSpeed, this.yDelta + ySpeed, this.getWidth() / 2, this.getHeight() / 2, lvlData)) {
-//            this.xDelta += xSpeed;
-//            this.yDelta += ySpeed;
-//        }
     }
 
     private void resetInTheAir() {
@@ -138,6 +126,15 @@ public class Player extends Entity {
                 drawLine(graphics,tr,tl);
         }
     }
+
+    public boolean entityToEntityCollisionCheck(int numOfEntity) {
+        return false;
+    }
+
+    public void entityCollisionInteraction() {
+
+    }
+
     private void drawLine(Graphics graphics, float[] p1, float[] p2) {
         float[] updatedP1 = calcPointAfterRotation(p1);
         float[] updatedP2 = calcPointAfterRotation(p2);
