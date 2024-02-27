@@ -58,4 +58,18 @@ public class HelperFunctions {
             return currTile * Game.TILE_SIZE;
         }
     }
+
+    public static int[] GetCoefficientsOfALine(float[] p1, float[] p2) {
+        int A = (int) (p1[1] - p2[1]);
+        int B = (int) (p1[0] - p2[0]);
+        int C = (int) ((p2[0] * p1[1]) - (p2[1] - p1[0]));
+
+        return new int[]{A,B,C};
+    }
+
+    public static boolean potentialCollisionBetweenLineAndCircle(int[] lineCoefficients, int circleCenterX, int circleCenterY, int radius) {
+        double distance = (Math.abs(lineCoefficients[0] * circleCenterX + lineCoefficients[1] * circleCenterY + lineCoefficients[2])
+                        / Math.sqrt(lineCoefficients[0] * lineCoefficients[0] + lineCoefficients[1] * lineCoefficients[1]));
+        return radius >= distance;
+    }
 }

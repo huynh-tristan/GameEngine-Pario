@@ -1,0 +1,6 @@
+<BehaviorTree>
+    <Sequence>
+        <Action name="test action 1" />
+        <Action name="test action 2" />
+    </Sequence>
+</BehaviorTree>
