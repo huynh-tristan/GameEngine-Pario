@@ -97,16 +97,15 @@ public class Ball extends Entity {
         //int radius = center[0] / 2;
 
         if (tr[0] >= getXDelta() && tr[0] <= getXDelta() + getWidth()/2) {
-
+            System.out.println("I got to here");
             if (isCollisionOnTheLeft(numOfEntity)) {
-
                 setRight(true);
                 setLeft(false);
                 return true;
             }
         }
         if (tl[0] <= getXDelta() + getWidth()/2 && tl[0] >= getXDelta()) {
-            System.out.println("I got to here");
+
             if (isCollisionOnTheRight(numOfEntity)) {
                 setLeft(true);
                 setRight(false);
@@ -123,7 +122,7 @@ public class Ball extends Entity {
         int[] center = getCenterOfLocation();
         int radius = center[0] / 2;
 
-        if (getYDelta() + (getHeight() / 2) <= tr[1] && getYDelta() + (getHeight() / 2) >= br[0]) {
+        if (getYDelta() + (getHeight() / 2) <= tr[1] && getYDelta() + (getHeight() / 2) >= br[1]) {
             return true;
         }
         //check if corner is touching circle then

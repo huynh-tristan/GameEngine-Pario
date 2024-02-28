@@ -42,7 +42,7 @@ public class LevelOne extends BasicGameState {
             throw new RuntimeException(e);
         }
         player = new Player(playerImage, 3,368,0.5f, lvlOne.getLvlData());
-        ball = new Ball(ballImage, 400, 68, 0.5f,  lvlOne.getLvlData());
+        ball = new Ball(ballImage, 432, 68, 0.5f,  lvlOne.getLvlData());
         secondEntity = new Player(secondEntityImage, 200, 100, 0.5f, lvlOne.getLvlData());
         secondEntity.setRotation(160);
 
@@ -121,7 +121,7 @@ public class LevelOne extends BasicGameState {
         if(gameContainer.getInput().isKeyPressed(Input.KEY_2)){
             ball.setRight(false);
             ball.setLeft(false);
-            ball.setXDelta(400);
+            ball.setXDelta(432);
         }
     }
 }
