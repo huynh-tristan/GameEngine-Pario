@@ -3,14 +3,15 @@ package GameStuff;
 import org.lwjgl.Sys;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Circle;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Ball extends Entity {
 
     private int[][] lvlData;
 
-    //Class will be used to keep information of the player character including hitbox/gravity etc.
     public Ball(Image front, float x, float y, float imageScale, int[][] lvlData) {
         this.frontImage = front;
         this.xDelta = x;
@@ -19,21 +20,22 @@ public class Ball extends Entity {
         this.speed = 2.0f;
         this.jumpSpeed = -4.25f;
         this.lvlData = lvlData;
+        this.entityCollisionCheckList = new ArrayList<>();
     }
 
     public void update() {
         //update the position/called in the level's update loop
-
-
         inTheAir = true;
+
+        entityToEntityCollisionCheck(0);
 
         float xSpeed = 0;
         if (this.left) {
             xSpeed = -speed;
-            //this.xDelta -= this.speed;
+            updateX(xSpeed);
         } else if (this.right) {
             xSpeed = speed;
-            //this.xDelta += this.speed;
+            updateX(xSpeed);
         }
 
         if (!inTheAir) {
@@ -73,27 +75,90 @@ public class Ball extends Entity {
             updateX(xSpeed);
         }
 
-//        if (this.up && !this.down) {
-//            ySpeed = -speed;
-//            //this.yDelta -= this.speed;
-//        } else if (!this.up && this.down) {
-//            ySpeed = speed;
-//            //this.yDelta += this.speed;
-//        }
-
-//        if (HelperFunctions.CanMoveHere(this.xDelta + xSpeed, this.yDelta + ySpeed, this.getWidth() / 2, this.getHeight() / 2, lvlData)) {
-//            this.xDelta += xSpeed;
-//            this.yDelta += ySpeed;
-//        }
     }
 
     @Override
     public void drawHitbox(Graphics graphics) {
-
+        int[] center = getCenterOfLocation();
+        graphics.draw(new Circle(getXDelta() + center[0] / 2, getYDelta() + center[1] / 2, (float) center[0] / 2));
+        graphics.drawLine(xDelta + center[0] / 2, yDelta + center[0] / 2, xDelta + center[0] / 2 + getWidth() / 4, yDelta + center[0] / 2);
+        graphics.drawLine(xDelta + center[0] / 2, yDelta + center[0] / 2, xDelta + center[0] / 2, yDelta + center[0] / 2 + getHeight() / 4);
     }
 
     @Override
     public boolean entityToEntityCollisionCheck(int numOfEntity) {
+        Entity player = getEntity(numOfEntity);
+        float[] tr = {player.getXDelta() + player.getWidth() / 2, player.getYDelta() + player.getHeight() / 2};
+        //[] br = {player.getXDelta() + player.getWidth() / 2, player.getYDelta()};
+        //float[] mr = {player.getXDelta() + player.getWidth() / 2, player.getYDelta() + player.getHeight() / 4};
+        float[] tl = {player.getXDelta(), player.getYDelta() + player.getHeight() / 2};
+        //float[] bl = {player.getXDelta(), player.getYDelta()};
+        int[] center = getCenterOfLocation();
+        //int radius = center[0] / 2;
+
+        if (tr[0] >= getXDelta() && tr[0] <= getXDelta() + getWidth()/2) {
+
+            if (isCollisionOnTheLeft(numOfEntity)) {
+
+                setRight(true);
+                setLeft(false);
+                return true;
+            }
+        }
+        if (tl[0] <= getXDelta() + getWidth()/2 && tl[0] >= getXDelta()) {
+            System.out.println("I got to here");
+            if (isCollisionOnTheRight(numOfEntity)) {
+                setLeft(true);
+                setRight(false);
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isCollisionOnTheLeft(int numOfEntity) {
+        Entity player = getEntity(numOfEntity);
+        float[] tr = {player.getXDelta() + player.getWidth() / 2, player.getYDelta() + player.getHeight() / 2};
+        float[] br = {player.getXDelta() + player.getWidth() / 2, player.getYDelta()};
+        int[] center = getCenterOfLocation();
+        int radius = center[0] / 2;
+
+        if (getYDelta() + (getHeight() / 2) <= tr[1] && getYDelta() + (getHeight() / 2) >= br[0]) {
+            return true;
+        }
+        //check if corner is touching circle then
+        //tr
+        double trDist = Math.sqrt(Math.pow(tr[0] - (center[0] + getXDelta()),2) + Math.pow(tr[1] - (center[1] + getYDelta()),2));
+        if (trDist <= radius) {
+            return true;
+        }
+        //br
+        double brDist = Math.sqrt(Math.pow(br[0] - (center[0] + getXDelta()),2) + Math.pow(br[1] - (center[1] + getYDelta()),2));
+        if (brDist <= radius) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isCollisionOnTheRight(int numOfEntity) {
+        Entity player = getEntity(numOfEntity);
+        float[] tl = {player.getXDelta(), player.getYDelta() + player.getHeight() / 2};
+        float[] bl = {player.getXDelta(), player.getYDelta()};
+        int[] center = getCenterOfLocation();
+        int radius = center[0] / 2;
+
+        //check if corner is touching circle then
+        //tl
+        double tlDist = Math.sqrt(Math.pow(tl[0] - (center[0] + getXDelta()),2) + Math.pow(tl[1] - (center[1] + getYDelta()),2));
+        if (tlDist <= radius) {
+            return true;
+        }
+        //bl
+        double blDist = Math.sqrt(Math.pow(bl[0] - (center[0] + getXDelta()),2) + Math.pow(bl[1] - (center[1] + getYDelta()),2));
+        if (blDist <= radius) {
+            return true;
+        }
+
         return false;
     }
 
@@ -116,13 +181,4 @@ public class Ball extends Entity {
             //return;
         }
     }
-
-    private void jump() {
-        if (inTheAir) {
-            return;
-        }
-        inTheAir = true;
-        airSpeed = jumpSpeed;
-    }
-    //Something with hitbox/collision related functions
 }

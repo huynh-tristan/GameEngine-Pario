@@ -68,8 +68,7 @@ public class HelperFunctions {
     }
 
     public static boolean potentialCollisionBetweenLineAndCircle(int[] lineCoefficients, int circleCenterX, int circleCenterY, int radius) {
-        double distance = (Math.abs(lineCoefficients[0] * circleCenterX + lineCoefficients[1] * circleCenterY + lineCoefficients[2])
-                        / Math.sqrt(lineCoefficients[0] * lineCoefficients[0] + lineCoefficients[1] * lineCoefficients[1]));
+        double distance = (Math.abs(lineCoefficients[0] * circleCenterX + lineCoefficients[1] * circleCenterY + lineCoefficients[2]) / Math.sqrt(lineCoefficients[0] * lineCoefficients[0] + lineCoefficients[1] * lineCoefficients[1]));
         return radius >= distance;
     }
 }

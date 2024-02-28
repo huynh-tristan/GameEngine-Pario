@@ -48,6 +48,8 @@ public class LevelOne extends BasicGameState {
 
         testAgent = new Agent(testAgentImage, 100, 100, 1, lvlOne.getLvlData(), xmlFile);
 
+
+        ball.appendToEntityList(player);
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
         gameContainer.getInput().addMouseListener(new MouseInputs(this.player));
     }
@@ -86,6 +88,7 @@ public class LevelOne extends BasicGameState {
         ball.renderFront();
         secondEntity.renderFront();
         player.drawHitbox(graphics);
+        ball.drawHitbox(graphics);
         secondEntity.drawHitbox(graphics);
 
         testAgent.renderFront();
@@ -100,9 +103,25 @@ public class LevelOne extends BasicGameState {
             player.updateLocation(3,368);
             stateBasedGame.enterState(2);
         }
+        if(ball.getXDelta() > 910) {
+            ball.setRight(false);
+        }
+        if(ball.getXDelta() < 40) {
+            ball.setLeft(false);
+        }
         if(gameContainer.getInput().isKeyPressed(Input.KEY_0)){
             player.updateLocation(3,368);
             stateBasedGame.enterState(1);
+        }
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_1)){
+            ball.setRight(false);
+            ball.setLeft(false);
+            ball.setYDelta(100);
+        }
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_2)){
+            ball.setRight(false);
+            ball.setLeft(false);
+            ball.setXDelta(400);
         }
     }
 }
