@@ -79,5 +79,6 @@ public class LevelOne extends BasicGameState {
             player.updateLocation(3,368);
             stateBasedGame.enterState(1);
         }
+
     }
 }

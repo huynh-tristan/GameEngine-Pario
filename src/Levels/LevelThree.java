@@ -36,7 +36,7 @@ public class LevelThree extends BasicGameState {
             //secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
             secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/fishSwim1.png");
             testAgentImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/blockerMad.png");
-            xmlFile = new File("./src/res/sampleTree.xml");
+            xmlFile = new File("./src/res/agent1Tree.xml");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
@@ -46,7 +46,7 @@ public class LevelThree extends BasicGameState {
         secondEntity.setRotation(160);
 
         testAgent = new Agent(testAgentImage, 100, 100, 1, lvlOne.getLvlData(), xmlFile);
-
+        testAgent.appendToEntityList(player);
 
         ball.appendToEntityList(player);
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
@@ -121,6 +121,10 @@ public class LevelThree extends BasicGameState {
             ball.setRight(false);
             ball.setLeft(false);
             ball.setXDelta(432);
+        }
+
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_RIGHT)){
+            secondEntity.setRotation(secondEntity.getRotation() + 15);
         }
     }
 }
