@@ -12,7 +12,7 @@ public class Player extends Entity {
     //Class will be used to keep information of the player character including hitbox/gravity etc.
     public Player(Image front, float x, float y, float imageScale, int[][] lvlData) {
         this.frontImage = front;
-        this.frontImage.setCenterOfRotation(front.getCenterOfRotationX() / 2, front.getCenterOfRotationY() / 2);
+        this.frontImage.setCenterOfRotation(front.getCenterOfRotationX() * imageScale, front.getCenterOfRotationY() * imageScale);
         this.xDelta = x;
         this.yDelta = y;
         this.scale = imageScale;
@@ -40,18 +40,18 @@ public class Player extends Entity {
         }
 
         if (!inTheAir) {
-            if (!HelperFunctions.IsEntityOnFloor(xDelta,yDelta,getWidth()/2,getHeight()/2,lvlData)) {
+            if (!HelperFunctions.IsEntityOnFloor(xDelta,yDelta,getWidth()* scale,getHeight()* scale,lvlData)) {
                 inTheAir = true;
             }
         }
 
         if (inTheAir) {
-            if (HelperFunctions.CanMoveHere(xDelta,yDelta + airSpeed,getWidth()/2,getHeight()/2,lvlData)) {
+            if (HelperFunctions.CanMoveHere(xDelta,yDelta + airSpeed,getWidth()*scale,getHeight()*scale,lvlData)) {
                 yDelta += airSpeed;
                 airSpeed += gravity;
                 updateX(xSpeed);
             } else {
-                yDelta = HelperFunctions.GetEntityYPositionNearTile(yDelta,getHeight()/2,airSpeed);
+                yDelta = HelperFunctions.GetEntityYPositionNearTile(yDelta,getHeight()*scale,airSpeed);
                 if (airSpeed > 0) {
                     resetInTheAir();
                 } else {
@@ -71,10 +71,18 @@ public class Player extends Entity {
     }
 
     private void updateX(float xSpeed) {
-        if (HelperFunctions.CanMoveHere(xDelta,yDelta,getWidth()/2,getHeight()/2,lvlData)) {
+        if (HelperFunctions.CanMoveHere(xDelta,yDelta,getWidth()*scale,getHeight()*scale,lvlData)) {
             xDelta += xSpeed;
         } else {
-            xDelta = HelperFunctions.GetEntityXPositionNearTile(xDelta,getWidth()/2, xSpeed);
+            xDelta = HelperFunctions.GetEntityXPositionNearTile(xDelta,getWidth()*scale, xSpeed);
+            if (this.right) {
+                setRight(false);
+                inTheAir = true;
+            }
+            if (this.left) {
+                setLeft(false);
+                inTheAir = true;
+            }
             //return;
         }
     }
@@ -93,10 +101,10 @@ public class Player extends Entity {
         float x1, y1;
         x1 = center[0] + getXDelta();
         y1 = center[1] + getYDelta();
-        float px1 = x1 + getWidth() / 4;
+        float px1 = x1 + getWidth() / 2 * scale;
         float px2 = x1;
         float py1 = y1;
-        float py2 = y1 + getHeight() / 4;
+        float py2 = y1 + getHeight() / 2 * scale;
         //graphics.drawLine(x1,y1,px2,py2);
         float qx1 = (float) (x1 + Math.cos(Math.toRadians(angleOfRotation)) * (px1 - x1) - Math.sin(Math.toRadians(angleOfRotation)) * (py1 - y1));
         float qy1 = (float) (y1 + Math.sin(Math.toRadians(angleOfRotation)) * (px1 - x1) + Math.cos(Math.toRadians(angleOfRotation)) * (py1 - y1));
@@ -108,17 +116,17 @@ public class Player extends Entity {
         switch ((int) angleOfRotation) {
             case 0:
             case 180:
-                graphics.drawRect(getXDelta(), getYDelta(), getWidth() / 2, getHeight() / 2);
+                graphics.drawRect(getXDelta(), getYDelta(), getWidth() *scale, getHeight() * scale);
                 break;
             case 90:
             case 270:
-                graphics.drawRect(getXDelta(), getYDelta(), getHeight() / 2, getWidth() / 2);
+                graphics.drawRect(getXDelta(), getYDelta(), getHeight() *scale, getWidth() *scale);
                 break;
             default:
-                float[] tl={xDelta,yDelta+getHeight()/2};
+                float[] tl={xDelta,yDelta+getHeight()*scale};
                 float[] bl={xDelta,yDelta};
-                float[] tr={xDelta+getWidth()/2,yDelta+getHeight()/2};
-                float[] br={xDelta+getWidth()/2,yDelta};
+                float[] tr={xDelta+getWidth()*scale,yDelta+getHeight()*scale};
+                float[] br={xDelta+getWidth()*scale,yDelta};
                 //tl to bl
                 drawLine(graphics,tl,bl);
                 drawLine(graphics,bl,br);

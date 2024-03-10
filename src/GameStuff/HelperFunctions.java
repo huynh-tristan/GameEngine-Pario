@@ -1,10 +1,12 @@
 package GameStuff;
 
+import org.lwjgl.Sys;
+
 public class HelperFunctions {
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
         if (!IsSolid(x, y, lvlData)) {
-            if (!IsSolid(x + width, y + height, lvlData)) {
-                if (!IsSolid(x + width, y, lvlData)) {
+            if (!IsSolid(x + width + 2, y + height, lvlData)) {
+                if (!IsSolid(x + width + 2, y, lvlData)) {
                     if (!IsSolid(x, y + height, lvlData)) {
                         return true;
                     }
@@ -42,9 +44,9 @@ public class HelperFunctions {
         if (xSpeed > 0) {
             int tileX = currTile * Game.TILE_SIZE;
             int xOff = (int) (Game.TILE_SIZE - width);
-            return tileX + xOff - 3;
+            return tileX + xOff + 28;
         } else {
-            return currTile * Game.TILE_SIZE + 33;
+            return currTile * Game.TILE_SIZE + 35;
         }
     }
 

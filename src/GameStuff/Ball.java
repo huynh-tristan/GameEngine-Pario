@@ -31,10 +31,10 @@ public class Ball extends Entity {
 
         float xSpeed = 0;
         if (this.left) {
-            xSpeed = -speed;
+            xSpeed = -speed/2;
             updateX(xSpeed);
         } else if (this.right) {
-            xSpeed = speed;
+            xSpeed = speed/2;
             updateX(xSpeed);
         }
 
@@ -97,7 +97,7 @@ public class Ball extends Entity {
         //int radius = center[0] / 2;
 
         if (tr[0] >= getXDelta() && tr[0] <= getXDelta() + getWidth()/2) {
-            System.out.println("I got to here");
+            //System.out.println("I got to here");
             if (isCollisionOnTheLeft(numOfEntity)) {
                 setRight(true);
                 setLeft(false);
@@ -176,6 +176,14 @@ public class Ball extends Entity {
             xDelta += xSpeed;
         } else {
             xDelta = HelperFunctions.GetEntityXPositionNearTile(xDelta,getWidth()/2, xSpeed);
+            if (this.right) {
+                setRight(false);
+                setLeft(true);
+            }
+            else if (this.left) {
+                setLeft(false);
+                setRight(true);
+            }
             //xDelta += -xSpeed * bounce;
             //return;
         }
