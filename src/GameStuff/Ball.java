@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Ball extends Entity {
 
     private int[][] lvlData;
+    private float frictionSpeed;
 
     public Ball(Image front, float x, float y, float imageScale, int[][] lvlData) {
         this.frontImage = front;
@@ -21,6 +22,7 @@ public class Ball extends Entity {
         this.jumpSpeed = -4.25f;
         this.lvlData = lvlData;
         this.entityCollisionCheckList = new ArrayList<>();
+        this.frictionSpeed = this.speed;
     }
 
     public void update() {
@@ -30,11 +32,32 @@ public class Ball extends Entity {
         entityToEntityCollisionCheck(0);
 
         float xSpeed = 0;
+        if (HelperFunctions.IsEntityOnFloor(xDelta,yDelta,getWidth()/2,getHeight()/2,lvlData)) {
+            if (this.right || this.left) {
+                frictionSpeed *= 0.99f;
+                if (frictionSpeed <= 0.01f) {
+                    frictionSpeed = 0.0f;
+                }
+            }
+            int[] center = getCenterOfLocation();
+            float xIdx = (float) ((center[0] / 2) + xDelta) / Game.TILE_SIZE;
+            float yIdx = (float) ((center[1] / 2) + yDelta) / Game.TILE_SIZE;
+            int value = lvlData[(int)yIdx + 1][(int)xIdx];
+            if (value == 0) {
+                int valLeft = lvlData[(int)yIdx + 1][(int)xIdx - 1];
+                frictionSpeed = speed;
+                if (valLeft != 0) {
+                    setRight(true);
+                } else {
+                    setLeft(true);
+                }
+            }
+        }
         if (this.left) {
-            xSpeed = -speed;
+            xSpeed = -frictionSpeed;
             updateX(xSpeed);
         } else if (this.right) {
-            xSpeed = speed;
+            xSpeed = frictionSpeed;
             updateX(xSpeed);
         }
 
@@ -101,6 +124,7 @@ public class Ball extends Entity {
             if (isCollisionOnTheLeft(numOfEntity)) {
                 setRight(true);
                 setLeft(false);
+                frictionSpeed = this.speed;
                 return true;
             }
         }
@@ -109,6 +133,8 @@ public class Ball extends Entity {
             if (isCollisionOnTheRight(numOfEntity)) {
                 setLeft(true);
                 setRight(false);
+                frictionSpeed = this.speed;
+                return true;
             }
         }
 

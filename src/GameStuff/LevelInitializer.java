@@ -19,9 +19,9 @@ public class LevelInitializer extends StateBasedGame {
         this.addState(new LevelTwo());
         //Level 3 shows off a sample enemy agent
         this.addState(new LevelThree());
-        //Level 4 could show off the ball interaction with a rotated box
+        //Level 4 shows off the ball interaction with interacting with corners of tiles/falling off of them
+        this.addState(new LevelFour());
 
-        //Level 5 could show off the player with a rotated box
 
         this.addState(new GameOverState());
         this.addState(new CompletionState());

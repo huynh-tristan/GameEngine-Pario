@@ -12,41 +12,28 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import java.io.File;
 
-public class LevelThree extends BasicGameState {
+public class LevelFour extends BasicGameState {
     private Player player;
     private Ball ball;
-    private Player secondEntity;
     private Level lvlOne;
-    private Agent testAgent;
 
     public int getID() {
-        return 4;
+        return 5;
     }
 
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) {
         defineLevel();
         Image playerImage;
         Image ballImage;
-        Image secondEntityImage;
-        Image testAgentImage;
-        File xmlFile;
+
         try {
             playerImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
             ballImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Items/bomb.png");
-            //secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
-            secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/fishSwim1.png");
-            testAgentImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/blockerMad.png");
-            xmlFile = new File("./src/res/agent1Tree.xml");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
         player = new Player(playerImage, 3,368,0.5f, lvlOne.getLvlData());
-        ball = new Ball(ballImage, 432, 68, 0.5f,  lvlOne.getLvlData());
-        secondEntity = new Player(secondEntityImage, 200, 100, 0.5f, lvlOne.getLvlData());
-        secondEntity.setRotation(160);
-
-        testAgent = new Agent(testAgentImage, 100, 100, 1, lvlOne.getLvlData(), xmlFile);
-        testAgent.appendToEntityList(player);
+        ball = new Ball(ballImage, 390, 68, 0.5f,  lvlOne.getLvlData());
 
         ball.appendToEntityList(player);
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
@@ -82,22 +69,16 @@ public class LevelThree extends BasicGameState {
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         TiledMap tm = new TiledMap("src/res/438Map.tmx", "src/res");
         tm.render(0,0);
-        graphics.drawString("Level 3", 400, 400);
+        graphics.drawString("Level 4", 400, 400);
         player.renderFront();
         ball.renderFront();
-        secondEntity.renderFront();
         player.drawHitbox(graphics);
         ball.drawHitbox(graphics);
-        secondEntity.drawHitbox(graphics);
-
-        testAgent.renderFront();
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) {
         player.update();
         ball.update();
-        testAgent.update();
-        secondEntity.update();
         if(player.getXDelta() > 910) {
             player.updateLocation(3,368);
             stateBasedGame.enterState(4);
@@ -120,11 +101,21 @@ public class LevelThree extends BasicGameState {
         if(gameContainer.getInput().isKeyPressed(Input.KEY_2)){
             ball.setRight(false);
             ball.setLeft(false);
-            ball.setXDelta(432);
+            ball.setYDelta(100);
+            ball.setXDelta(390);
         }
-
-        if(gameContainer.getInput().isKeyPressed(Input.KEY_RIGHT)){
-            secondEntity.setRotation(secondEntity.getRotation() + 15);
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_3)){
+            ball.setRight(false);
+            ball.setLeft(false);
+            ball.setYDelta(100);
+            ball.setXDelta(540);
+        }
+        if(gameContainer.getInput().isKeyPressed(Input.KEY_4)){
+            ball.setRight(false);
+            ball.setLeft(false);
+            ball.setYDelta(280);
+            ball.setXDelta(530);
         }
     }
 }
+
