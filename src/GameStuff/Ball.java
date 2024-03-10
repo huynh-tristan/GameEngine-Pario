@@ -17,7 +17,7 @@ public class Ball extends Entity {
         this.xDelta = x;
         this.yDelta = y;
         this.scale = imageScale;
-        this.speed = 2.0f;
+        this.speed = 1.0f;
         this.jumpSpeed = -4.25f;
         this.lvlData = lvlData;
         this.entityCollisionCheckList = new ArrayList<>();
@@ -31,10 +31,10 @@ public class Ball extends Entity {
 
         float xSpeed = 0;
         if (this.left) {
-            xSpeed = -speed/2;
+            xSpeed = -speed;
             updateX(xSpeed);
         } else if (this.right) {
-            xSpeed = speed/2;
+            xSpeed = speed;
             updateX(xSpeed);
         }
 

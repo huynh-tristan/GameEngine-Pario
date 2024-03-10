@@ -16,7 +16,7 @@ public class Player extends Entity {
         this.xDelta = x;
         this.yDelta = y;
         this.scale = imageScale;
-        this.speed = 1.5f;
+        this.speed = 1.0f;
         this.jumpSpeed = -3.25f;
         this.lvlData = lvlData;
     }
