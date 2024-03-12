@@ -18,6 +18,7 @@ public class LevelThree extends BasicGameState {
     private Player secondEntity;
     private Level lvlOne;
     private Agent testAgent;
+    private Agent testAgent2;
 
     public int getID() {
         return 4;
@@ -29,14 +30,18 @@ public class LevelThree extends BasicGameState {
         Image ballImage;
         Image secondEntityImage;
         Image testAgentImage;
+        Image testAgent2Image;
         File xmlFile;
+        File xmlFile2;
         try {
             playerImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
             ballImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Items/bomb.png");
             //secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
             secondEntityImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/fishSwim1.png");
             testAgentImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/blockerMad.png");
+            testAgent2Image = new Image("src/res/Platformer_Art_Complete_Pack/Base pack/Enemies/blockerSad.png");
             xmlFile = new File("./src/res/agent1Tree.xml");
+            xmlFile2 = new File("./src/res/agent2Tree.xml");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +52,10 @@ public class LevelThree extends BasicGameState {
 
         testAgent = new Agent(testAgentImage, 100, 100, 1, lvlOne.getLvlData(), xmlFile);
         testAgent.appendToEntityList(player);
+
+        testAgent2 = new Agent(testAgent2Image, 200, 200, 1, lvlOne.getLvlData(), xmlFile2);
+        testAgent2.appendToEntityList(player);
+
 
         ball.appendToEntityList(player);
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
@@ -91,16 +100,18 @@ public class LevelThree extends BasicGameState {
         secondEntity.drawHitbox(graphics);
 
         testAgent.renderFront();
+        testAgent2.renderFront();
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) {
         player.update();
         ball.update();
         testAgent.update();
+        testAgent2.update();
         secondEntity.update();
         if(player.getXDelta() > 910) {
             player.updateLocation(3,368);
-            stateBasedGame.enterState(4);
+            stateBasedGame.enterState(5);
         }
         if(ball.getXDelta() > 910) {
             ball.setRight(false);

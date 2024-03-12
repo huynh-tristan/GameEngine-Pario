@@ -19,6 +19,17 @@ public class Player extends Entity {
         this.speed = 1.0f;
         this.jumpSpeed = -3.25f;
         this.lvlData = lvlData;
+
+        float[] tl={xDelta,yDelta+getHeight()*scale};
+        float[] bl={xDelta,yDelta};
+        float[] tr={xDelta+getWidth()*scale,yDelta+getHeight()*scale};
+        float[] br={xDelta+getWidth()*scale,yDelta};
+
+        int[] centerOfImage = getCenterOfLocation();
+        float[] center = new float[]{centerOfImage[0] * scale + xDelta, centerOfImage[1] * scale + yDelta};
+
+        this.box = new Box(tr, tl, br, bl, 0, getWidth(), getHeight(), center);
+
     }
 
     public void update() {
@@ -61,6 +72,23 @@ public class Player extends Entity {
             }
         } else {
             updateX(xSpeed);
+        }
+
+        if (this.box != null) {
+            float[] tl={xDelta,yDelta+getHeight()*scale};
+            float[] bl={xDelta,yDelta};
+            float[] tr={xDelta+getWidth()*scale,yDelta+getHeight()*scale};
+            float[] br={xDelta+getWidth()*scale,yDelta};
+
+            float[] actualTR = calcPointAfterRotation(tr);
+            float[] actualTL = calcPointAfterRotation(tl);
+            float[] actualBR = calcPointAfterRotation(br);
+            float[] actualBL = calcPointAfterRotation(bl);
+
+            int[] centerOfImage = getCenterOfLocation();
+            float[] center = new float[]{centerOfImage[0] * scale + xDelta, centerOfImage[1] * scale + yDelta};
+
+            this.box.updateBoxCoordinates(actualTR, actualTL, actualBR, actualBL, center);
         }
 
     }
@@ -149,13 +177,13 @@ public class Player extends Entity {
         graphics.drawLine(updatedP1[0],updatedP1[1],updatedP2[0],updatedP2[1]);
     }
 
-    private float[] calcPointAfterRotation(float[] p) {
-        int[] origin = getCenterOfLocation();
-        float x1 = origin[0] + getXDelta();
-        float y1 = origin[1] + getYDelta();
-        float angleOfRotation = getRotation();
-        float newX = (float) (x1 + Math.cos(Math.toRadians(angleOfRotation)) * (p[0] - x1) - Math.sin(Math.toRadians(angleOfRotation)) * (p[1] - y1));
-        float newY = (float) (y1 + Math.sin(Math.toRadians(angleOfRotation)) * (p[0] - x1) + Math.cos(Math.toRadians(angleOfRotation)) * (p[1] - y1));
-        return new float[]{newX, newY};
-    }
+//    private float[] calcPointAfterRotation(float[] p) {
+//        int[] origin = getCenterOfLocation();
+//        float x1 = origin[0] + getXDelta();
+//        float y1 = origin[1] + getYDelta();
+//        float angleOfRotation = getRotation();
+//        float newX = (float) (x1 + Math.cos(Math.toRadians(angleOfRotation)) * (p[0] - x1) - Math.sin(Math.toRadians(angleOfRotation)) * (p[1] - y1));
+//        float newY = (float) (y1 + Math.sin(Math.toRadians(angleOfRotation)) * (p[0] - x1) + Math.cos(Math.toRadians(angleOfRotation)) * (p[1] - y1));
+//        return new float[]{newX, newY};
+//    }
 }

@@ -45,7 +45,9 @@ public class Ball extends Entity {
             int value = lvlData[(int)yIdx + 1][(int)xIdx];
             if (value == 0) {
                 int valLeft = lvlData[(int)yIdx + 1][(int)xIdx - 1];
-                frictionSpeed = speed;
+                if (frictionSpeed < 0.5f) {
+                    frictionSpeed = 0.5f;
+                }
                 if (valLeft != 0) {
                     setRight(true);
                 } else {

@@ -23,6 +23,8 @@ public abstract class Entity {
     
     protected ArrayList<Entity> entityCollisionCheckList;
 
+    public Box box;
+
     public abstract void update();
     //vectors for OBB
 
@@ -85,6 +87,24 @@ public abstract class Entity {
 
     public void setRotation(float angle) {
         this.frontImage.setRotation(angle);
+        if (this.box != null) {
+            this.box.updateBoxOrientation(angle);
+
+            float[] tl={xDelta,yDelta+getHeight()*scale};
+            float[] bl={xDelta,yDelta};
+            float[] tr={xDelta+getWidth()*scale,yDelta+getHeight()*scale};
+            float[] br={xDelta+getWidth()*scale,yDelta};
+
+            float[] actualTR = calcPointAfterRotation(tr);
+            float[] actualTL = calcPointAfterRotation(tl);
+            float[] actualBR = calcPointAfterRotation(br);
+            float[] actualBL = calcPointAfterRotation(bl);
+
+            int[] centerOfImage = getCenterOfLocation();
+            float[] center = new float[]{centerOfImage[0] * scale + xDelta, centerOfImage[1] * scale + yDelta};
+
+            this.box.updateBoxCoordinates(actualTR, actualTL, actualBR, actualBL, center);
+        }
     }
 
     public float getRotation() {
@@ -155,5 +175,15 @@ public abstract class Entity {
 
     public Entity getEntity(int numOfEntity) {
         return this.entityCollisionCheckList.get(numOfEntity);
+    }
+
+    public float[] calcPointAfterRotation(float[] p) {
+        int[] origin = getCenterOfLocation();
+        float x1 = origin[0] + getXDelta();
+        float y1 = origin[1] + getYDelta();
+        float angleOfRotation = getRotation();
+        float newX = (float) (x1 + Math.cos(Math.toRadians(angleOfRotation)) * (p[0] - x1) - Math.sin(Math.toRadians(angleOfRotation)) * (p[1] - y1));
+        float newY = (float) (y1 + Math.sin(Math.toRadians(angleOfRotation)) * (p[0] - x1) + Math.cos(Math.toRadians(angleOfRotation)) * (p[1] - y1));
+        return new float[]{newX, newY};
     }
 }

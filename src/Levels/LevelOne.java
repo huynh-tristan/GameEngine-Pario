@@ -1,8 +1,6 @@
 package Levels;
 
-import GameStuff.Agent;
-import GameStuff.Player;
-import GameStuff.Ball;
+import GameStuff.*;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import org.newdawn.slick.*;
@@ -15,6 +13,7 @@ import java.io.File;
 public class LevelOne extends BasicGameState {
 
     private Player player;
+    private Fire fire;
     private Level lvlOne;
 
     public int getID() {
@@ -24,15 +23,18 @@ public class LevelOne extends BasicGameState {
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) {
         defineLevel();
         Image playerImage;
+        Image fireImage;
 
         try {
             playerImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Player/p1_front.png");
+            fireImage = new Image("./src/res/Platformer_Art_Complete_Pack/Base pack/Tiles/liquidLava.png");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
         player = new Player(playerImage, 3,368,0.5f, lvlOne.getLvlData());
         gameContainer.getInput().addKeyListener(new KeyboardInputs(this.player));
         gameContainer.getInput().addMouseListener(new MouseInputs(this.player));
+        fire = new Fire(fireImage,370,368,0.5f,315);
     }
 
     private void defineLevel() {
@@ -67,6 +69,8 @@ public class LevelOne extends BasicGameState {
         graphics.drawString("Level 1", 400, 400);
         player.renderFront();
         player.drawHitbox(graphics);
+        fire.renderFront();
+        fire.drawHitbox(graphics);
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) {
@@ -79,6 +83,13 @@ public class LevelOne extends BasicGameState {
             player.updateLocation(3,368);
             stateBasedGame.enterState(1);
         }
+        if(HelperFunctions.OrientedBoxAndOrientedBoxCollision(fire.box, player.box)) {
+            System.out.println("Player and box are colliding");
+            //would be a game over transition but this is for demo purposes
+            //stateBasedGame.enterState(1);
+        }//else{
+            //System.out.println("Not colliding");
+        //}
 
     }
 }

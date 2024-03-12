@@ -81,7 +81,7 @@ public class LevelFour extends BasicGameState {
         ball.update();
         if(player.getXDelta() > 910) {
             player.updateLocation(3,368);
-            stateBasedGame.enterState(4);
+            stateBasedGame.enterState(2);
         }
         if(ball.getXDelta() > 910) {
             ball.setRight(false);
