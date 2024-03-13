@@ -1,3 +1,5 @@
+package Levels;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -18,7 +20,7 @@ public class GameOverState extends BasicGameState {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) {
-        graphics.drawString("Game Over", 300, 200);
+        graphics.drawString("GameStuff.Game Over", 300, 200);
         graphics.drawString("To Try Again, Press ENTER", 300, 300);
         graphics.drawString("To Quit, Press Esc", 300, 350);
     }

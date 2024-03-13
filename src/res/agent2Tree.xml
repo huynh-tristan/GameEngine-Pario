@@ -1,0 +1,6 @@
+<BehaviorTree>
+    <Sequence>
+        <Action name="checkPlayerLocation" />
+        <Action name="moveBackAndForth" />
+    </Sequence>
+</BehaviorTree>
